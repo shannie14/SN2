@@ -13,15 +13,6 @@ const app = express();
 app.use(express.static(path.join(__dirname, './client')));
 app.use(express.json());
 
-//mongoose connection
-const connectionStringURI = process.env.NODE_ENV == 'production' ? process.env.MONGODB_URL : `mongodb://127.0.0.1:27017/NBTV`;
-
-mongoose.connect(connectionStringURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log('SK connected to mongodb successfully')
-        console.log(Object.keys(mongoose.connection.collections));
-    })
-
 // Import the ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
 
