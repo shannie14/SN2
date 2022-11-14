@@ -1,4 +1,4 @@
-import Login from './Login';
-// import Dashboard from './dashboard';
+import Home from './Home';
+import Audience from './Audience';
 
-export { Login };
+export { Home, Audience };

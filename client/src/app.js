@@ -1,57 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {
-    ApolloClient,
-    InMemoryCache,
-    ApolloProvider,
-    createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-
-
-import { Home, Login, Dashboard } from './pages/index.js';
-import { Nav } from './components/index.js';
-// import { background } from "./components/Background/background.js";
-
-//review StoreProvider and state
-import { StoreProvider } from './utils/GlobalState';
-
-const httpLink = createHttpLink({
-    uri: '/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem('id_token');
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : '',
-        },
-    };
-});
-
-const client = new ApolloClient({
-    link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
-});
+import './App.css';
+import { NavResp, Login, Dashboard } from './components/index.js';
+import { Home, Audience } from './pages/index.js';
 
 function App() {
-    return (
-        <ApolloProvider client={client}>
-            <Router>
-                <div>
-                    <StoreProvider>
-                        <Nav />
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/dashboard" element={<Dashboard />} />
-                        </Routes>
-                    </StoreProvider>
-                </div>
-            </Router>
-        </ApolloProvider>
-    );
+  return (
+    <Router>
+      <div>
+        <NavResp />
+        <div className="container">
+        </div>
+      </div>
+    </Router>
+  );
 }
 
 export default App;
